@@ -1,0 +1,43 @@
+resource "aws_route53_health_check" "primary" {
+  ip_address              = var.primary_ip
+  port              = 80
+  type              = "HTTP"
+  resource_path     = "/"
+  failure_threshold = 3
+  request_interval  = 30
+}
+
+resource "aws_route53_health_check" "secondary" {
+  ip_address =       var.secondary_ip
+  port              = 80
+  type              = "HTTP"
+  resource_path     = "/"
+  failure_threshold = 3
+  request_interval  = 30
+}
+
+resource "aws_route53_record" "failover_primary" {
+  zone_id = var.zone_id
+  name    = var.record_name
+  type    = "A"
+  ttl     = 60
+
+  set_identifier  = "primary"
+  failover        = "PRIMARY"
+  health_check_id = aws_route53_health_check.primary.id
+
+  records = [var.primary_ip]
+}
+
+resource "aws_route53_record" "failover_secondary" {
+  zone_id = var.zone_id
+  name    = var.record_name
+  type    = "A"
+  ttl     = 60
+
+  set_identifier  = "secondary"
+  failover        = "SECONDARY"
+  health_check_id = aws_route53_health_check.secondary.id
+
+  records = [var.secondary_ip]
+}
