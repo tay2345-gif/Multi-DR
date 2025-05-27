@@ -1,10 +1,11 @@
 provider "aws" {
-  region = "us-west-2"  
+  alias  = "secondary"
+  region = "us-west-2"
 }
 
 
-module "vpc" {
-  source = "../../modules/vpc"
+module "vpc_secondary" {
+  source = "/modules/vpc"
 
   vpc_cidr            = "10.1.0.0/16"
   public_subnet_cidrs = ["10.1.1.0/24", "10.1.2.0/24"]
@@ -14,7 +15,7 @@ module "vpc" {
 
 
 module "ec2_secondary" {
-  source = "../../modules/ec2"
+  source = "/modules/ec2"
 
   ami_id                 = "ami-0e472ba40eb589f49"  # Replace with latest Amazon Linux 2 AMI for this region
   instance_type          = "t2.micro"
