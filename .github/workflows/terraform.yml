@@ -24,8 +24,7 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        env:
-          TFC_TOKEN: ${{ secrets.TFC_TOKEN }}
+        
 
       - name: Terraform Format Check
         run: terraform fmt -check
