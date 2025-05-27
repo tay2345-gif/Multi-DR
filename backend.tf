@@ -1,8 +1,9 @@
 terraform {
-  cloud {
-    organization = "the-best"
+  backend "remote" {
+    organization = "the-best" 
+
     workspaces {
-      name = "Multi-DR"
+      name = "Multi-DR" 
     }
   }
 }
