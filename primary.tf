@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "vpc" {
-  source               = "../../modules/vpc"
+  source               = "/modules/vpc"
   name_prefix          = "primary"
   vpc_cidr             = "10.0.0.0/16"
   public_subnet_cidrs  = ["10.0.1.0/24"]
@@ -12,7 +12,7 @@ module "vpc" {
 }
 
 module "ec2_primary" {
-  source        = "../../modules/ec2"
+  source        = "/modules/ec2"
   name_prefix   = "primary"
   ami_id        = "ami-0c94855ba95c71c99"
   instance_type = "t2.micro"
@@ -22,7 +22,7 @@ module "ec2_primary" {
 }
 
 module "rds" {
-  source           = "../../modules/rds"
+  source           = "/modules/rds"
   db_name          = "prodapp"
   db_engine        = "mysql"
   instance_class   = "db.t3.micro"
@@ -32,14 +32,14 @@ module "rds" {
 }
 
 module "s3" {
-  source          = "../../modules/s3"
+  source          = "/modules/s3"
   name_prefix     = "primary"
   region          = "us-east-1"
   replication_arn = "arn:aws:s3:::secondary-region-bucket"
 }
 
 module "route53" {
-  source = "../../modules/route"
+  source = "/modules/route"
 
   zone_id      = "123456789ABCDEFG"
   record_name  = "app.example.com"
