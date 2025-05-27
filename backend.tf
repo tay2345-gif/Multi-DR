@@ -2,7 +2,7 @@ terraform {
   cloud {
     organization = "the-best"
     workspaces {
-      name = "multi-region"
+      name = "Multi-DR"
     }
   }
 }
