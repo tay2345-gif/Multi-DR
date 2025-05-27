@@ -1,47 +1,29 @@
-variable "name_prefix" {}
+variable "db_name" {
+  description = "Database name"
+  type        = string
+}
 
 variable "db_engine" {
-  default = "mysql"
-}
-
-variable "engine_version" {
-  default = "8.0"
-}
-
-variable "db_name" {
-  default = "mydatabase"
-}
-
-variable "db_username" {
-  default = "admin"
-}
-
-variable "db_password" {
-  default = "Password123!"  # For demo; use secrets in real projects
-  sensitive = true
+  description = "Database engine (e.g. mysql, postgres)"
+  type        = string
 }
 
 variable "instance_class" {
-  default = "db.t3.micro"
-}
-
-variable "storage" {
-  default = 20
-}
-
-variable "storage_type" {
-  default = "gp2"
+  description = "RDS instance class"
+  type        = string
 }
 
 variable "subnet_ids" {
-  type = list(string)
+  description = "List of private subnet IDs for the RDS instance"
+  type        = list(string)
 }
 
 variable "vpc_security_ids" {
-  type = list(string)
+  description = "List of VPC security group IDs for the RDS instance"
+  type        = list(string)
 }
 
 variable "multi_az" {
-  type    = bool
-  default = false
+  description = "Enable Multi-AZ deployment"
+  type        = bool
 }

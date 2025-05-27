@@ -1,21 +1,14 @@
-variable "bucket_name" {
+variable "name_prefix" {
+  description = "Prefix for the S3 bucket name"
   type        = string
-  description = "Name of the S3 bucket"
 }
 
-variable "env" {
+variable "region" {
+  description = "AWS region"
   type        = string
-  description = "Environment (primary/secondary)"
 }
 
-variable "enable_replication" {
-  type        = bool
-  description = "Whether to enable replication to another region"
-  default     = false
-}
-
-variable "replica_bucket_arn" {
-  type        = string
+variable "replication_arn" {
   description = "ARN of the destination bucket for replication"
-  default     = ""
+  type        = string
 }
