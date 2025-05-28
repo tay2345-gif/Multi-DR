@@ -18,8 +18,8 @@ module "ec2_primary" {
   name_prefix   = "primary"
   ami_id        = "ami-0c94855ba95c71c99"
   instance_type = "t2.micro"
-  subnet_id     = module.vpc.public_subnet_ids[0]
-  vpc_id        = module.vpc.vpc_id
+  subnet_id     = module.vpc_primary.public_subnet_ids[0]
+  vpc_id        = module.vpc_primary.vpc_id
   key_name      = "your-key-name"
 }
 
@@ -28,8 +28,8 @@ module "rds" {
   db_name          = "prodapp"
   db_engine        = "mysql"
   instance_class   = "db.t3.micro"
-  subnet_ids       = module.vpc.private_subnet_ids
-  vpc_security_ids = [module.vpc.db_sg_id]
+  subnet_ids       = module.vpc_primary.private_subnet_ids
+  vpc_security_ids = [module.vpc_primary.db_sg_id]
   multi_az         = true
 }
 
