@@ -15,7 +15,7 @@ module "vpc_secondary" {
 module "ec2_secondary" {
   source        = "./modules/ec2"
   name_prefix   = "secondary"
-  ami_id        = "ami-0e472ba40eb589f49"  # Replace with the latest AMI for your region
+  ami_id        = "ami-0e472ba40eb589f49" # Replace with the latest AMI for your region
   instance_type = "t2.micro"
   subnet_id     = module.vpc_secondary.public_subnet_ids[0]
   vpc_id        = module.vpc_secondary.vpc_id
