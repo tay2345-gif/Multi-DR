@@ -27,3 +27,15 @@ variable "multi_az" {
   description = "Enable Multi-AZ deployment"
   type        = bool
 }
+
+variable "name_prefix" {
+  description = "Prefix for naming AWS resources"
+  type        = string
+}
+
+
+variable "vpc_security_ids" {
+  description = "List of VPC security group IDs for the DB instance"
+  type        = list(string)
+}
+
