@@ -1,5 +1,8 @@
-resource "aws_vpc" "main" {
-  cidr_block = var.vpc_cidr
+resource "aws_vpc" "this" {
+  cidr_block           = var.vpc_cidr
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
   tags = {
     Name = "${var.name_prefix}-vpc"
   }
@@ -7,31 +10,31 @@ resource "aws_vpc" "main" {
 
 resource "aws_subnet" "public" {
   count                   = length(var.public_subnet_cidrs)
-  vpc_id                  = aws_vpc.main.id
+  vpc_id                  = aws_vpc.this.id
   cidr_block              = var.public_subnet_cidrs[count.index]
   availability_zone       = var.azs[count.index]
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${var.name_prefix}-public-${count.index}"
+    Name = "${var.name_prefix}-public-${count.index + 1}"
   }
 }
 
 resource "aws_subnet" "private" {
   count             = length(var.private_subnet_cidrs)
-  vpc_id            = aws_vpc.main.id
+  vpc_id            = aws_vpc.this.id
   cidr_block        = var.private_subnet_cidrs[count.index]
   availability_zone = var.azs[count.index]
 
   tags = {
-    Name = "${var.name_prefix}-private-${count.index}"
+    Name = "${var.name_prefix}-private-${count.index + 1}"
   }
 }
 
-resource "aws_security_group" "db_sg" {
-  name        = "${var.name_prefix}-rds-sg"
-  description = "Allow MySQL access"
-  vpc_id      = aws_vpc.main.id
+resource "aws_security_group" "db" {
+  name        = "${var.name_prefix}-db-sg"
+  description = "DB SG"
+  vpc_id      = aws_vpc.this.id
 
   ingress {
     from_port   = 3306
@@ -46,4 +49,9 @@ resource "aws_security_group" "db_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "${var.name_prefix}-db-sg"
+  }
 }
+
