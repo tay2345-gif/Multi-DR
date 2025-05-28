@@ -25,6 +25,7 @@ module "ec2_primary" {
 
 module "rds" {
   source           = "./modules/rds"
+  name_prefix      = "primary"                   # ✅ Required variable
   db_name          = "prodapp"
   db_engine        = "mysql"
   instance_class   = "db.t3.micro"
@@ -32,6 +33,7 @@ module "rds" {
   vpc_security_ids = [module.vpc_primary.db_sg_id]
   multi_az         = true
 }
+
 
 module "s3" {
   source          = "./modules/s3"
