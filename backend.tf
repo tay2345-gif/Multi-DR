@@ -3,7 +3,7 @@ terraform {
     organization = "the-best"
 
     workspaces {
-      name = "Multi-Dr"
+      name = "Multi-DR"
     }
   }
 }
