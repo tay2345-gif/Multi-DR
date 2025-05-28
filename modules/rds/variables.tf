@@ -34,8 +34,4 @@ variable "name_prefix" {
 }
 
 
-variable "vpc_security_ids" {
-  description = "List of VPC security group IDs for the DB instance"
-  type        = list(string)
-}
 
