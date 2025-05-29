@@ -33,7 +33,7 @@ resource "aws_s3_bucket_versioning" "this" {
 
 resource "aws_s3_bucket_replication_configuration" "this" {
   bucket = aws_s3_bucket.this.id
-  role   = "arn:aws:iam::YOUR_ACCOUNT_ID:role/s3-replication-role" # Replace
+  role   = "arn:aws:iam::654654409772:role/s3-replication-role" # Replace
 
   rule {
     id     = "replication-rule"
