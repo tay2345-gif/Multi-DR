@@ -21,3 +21,21 @@ module "ec2_secondary" {
   vpc_id        = module.vpc_secondary.vpc_id
   key_name      = "your-key-name"
 }
+module "rds_secondary" {
+  source           = "./modules/rds"
+  name_prefix      = "secondary"
+  db_name          = "prodapp"
+  db_engine        = "mysql"
+  instance_class   = "db.t3.micro"
+  subnet_ids       = module.vpc_secondary.private_subnet_ids
+  vpc_security_ids = [module.vpc_secondary.db_sg_id]
+  multi_az         = false  # Can be true if needed
+  restore_from_snapshot = true # Optional: custom flag if module supports snapshot restore
+}
+
+module "s3_secondary" {
+  source      = "./modules/s3"
+  name_prefix = "secondary"
+  region      = "us-west-2"
+  replication_arn = "arn:aws:s3:::primary-region-bucket"
+}
