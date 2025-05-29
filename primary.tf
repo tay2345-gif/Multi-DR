@@ -40,7 +40,7 @@ module "s3" {
   source          = "./modules/s3"
   name_prefix     = "primary"
   region          = "us-east-1"
-  replication_arn = "arn:aws:iam::123456789012:role/s3-replication-role"  # Replace with valid IAM role ARN
+  replication_arn = "arn:aws:iam::654654409772:role/s3-replication-role"  # Replace with valid IAM role ARN
 }
 
 # Route53 DNS Failover
