@@ -8,7 +8,7 @@ resource "aws_db_instance" "rds" {
   engine                  = "mysql"
   instance_class          = "db.t3.micro"
   allocated_storage       = 20
-  name                    = "mydb"
+  db_name                 = "mydb"
   username                = "admin"
   password                = "password123"  # Use secrets for production!
   db_subnet_group_name    = aws_db_subnet_group.this.name
