@@ -30,7 +30,6 @@ module "rds_secondary" {
   subnet_ids       = module.vpc_secondary.private_subnet_ids
   vpc_security_ids = [module.vpc_secondary.db_sg_id]
   multi_az         = false  # Can be true if needed
-  restore_from_snapshot = true # Optional: custom flag if module supports snapshot restore
 }
 
 module "s3_secondary" {
